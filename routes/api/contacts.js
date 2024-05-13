@@ -83,4 +83,20 @@ router.put("/:contactId", async (req, res, next) => {
   }
 });
 
+router.patch("/:contactId", async (req, res, next) => {
+  if (req.body.favorite) {
+    const result = await updateStatusContact(
+      req.params.contactId,
+      req.body.favorite
+    );
+    if (result != null) {
+      res.status(200).send({ messege: "Update Conctact Completed" });
+    } else {
+      res.status(404).send({ message: "Id not found" });
+    }
+  } else {
+    res.status(404).send({ message: "missing field favorite" });
+  }
+});
+
 module.exports = router;
